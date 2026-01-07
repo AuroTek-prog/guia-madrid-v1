@@ -40,15 +40,22 @@
   },
   "essentials": {
     "title": "Wichtige Informationen",
-    "wifi_title": "WiFi & Verbindung",
+    "wifi_title": "WLAN & Konnektivität",
     "wifi_network": "Netzwerk",
     "wifi_password": "Passwort",
-    "wifi_tap_to_copy": "Tippen zum Kopieren",
+    "wifi_qr_code_hint": "Tippen Sie auf das Symbol, um das Passwort zu kopieren",
     "access_title": "Zugangsanweisungen",
     "access_code": "Code",
     "access_instructions": "Anweisungen",
     "house_rules_title": "Hausregeln",
-    "recommendations_title": "Empfehlungen in der Nähe"
+    "rules_no_smoking": "Nicht rauchen",
+    "rules_quiet_hours": "Ruhezeiten",
+    "rules_quiet_hours_time": "22:00 - 08:00",
+    "rules_recycle": "Bitte recyceln",
+    "rules_checkout": "Check-out-Zeit",
+    "rules_checkout_time": "Vor 11:00 Uhr",
+    "contact_host": "Gastgeber kontaktieren",
+    "usually_responds": "Antwortet in der Regel innerhalb von 1 Stunde"
   },
   "devices": {
     "title": "Geräte verwenden",

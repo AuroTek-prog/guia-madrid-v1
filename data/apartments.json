@@ -20,8 +20,12 @@
     },
 
     "access": {
-      "type": "keybox",
-      "code": "1859B"
+       "type": "keybox",
+      "code": "1859B",
+      "instructions": [
+        "Localiza la caja de llaves negra a la izquierda de la puerta principal.",
+        "Introduce el código de 4 dígitos y tira de la palanca negra hacia abajo para abrir."
+         ]
     },
 
         "devices": {
@@ -139,8 +143,12 @@
     },
 
     "wifi": {
-      "network": "Luxury_GranVia",
-      "password": "madrid2024!"
+      "type": "keypad",
+      "code": "1234ABCD",
+      "instructions": [
+        "Pasa la tarjeta por el lector junto a la puerta.",
+        "La luz se pondrá verde y la cerradura se desbloqueará."
+      ]
     },
 
     "access": {

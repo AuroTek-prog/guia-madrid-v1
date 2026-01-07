@@ -39,16 +39,23 @@
     "nav_support": "Support"
   },
   "essentials": {
-    "title": "Essential Information",
+     "title": "Apartment Essentials",
     "wifi_title": "WiFi & Connectivity",
     "wifi_network": "Network",
     "wifi_password": "Password",
-    "wifi_tap_to_copy": "Tap the icon to copy",
+    "wifi_qr_code_hint": "Tap the icon to copy the password",
     "access_title": "Access Instructions",
     "access_code": "Code",
     "access_instructions": "Instructions",
     "house_rules_title": "House Rules",
-    "recommendations_title": "Nearby Recommendations"
+    "rules_no_smoking": "No Smoking",
+    "rules_quiet_hours": "Quiet Hours",
+    "rules_quiet_hours_time": "10 PM - 8 AM",
+    "rules_recycle": "Please Recycle",
+    "rules_checkout": "Checkout",
+    "rules_checkout_time": "Before 11:00 AM",
+    "contact_host": "Contact Host",
+    "usually_responds": "Usually responds in 1h"
   },
   "devices": {
     "title": "How to Use Devices",

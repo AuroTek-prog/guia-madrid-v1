@@ -39,16 +39,23 @@
     "nav_support": "Support"
   },
   "essentials": {
-    "title": "Informations essentielles",
-    "wifi_title": "WiFi et connectivité",
+    "title": "Informations Essentielles",
+    "wifi_title": "WiFi et Connexion",
     "wifi_network": "Réseau",
     "wifi_password": "Mot de passe",
-    "wifi_tap_to_copy": "Touchez l’icône pour copier",
-    "access_title": "Instructions d’accès",
+    "wifi_qr_code_hint": "Appuyez sur l'icône pour copier le mot de passe",
+    "access_title": "Instructions d'Accès",
     "access_code": "Code",
     "access_instructions": "Instructions",
-    "house_rules_title": "Règles de la maison",
-    "recommendations_title": "Recommandations à proximité"
+    "house_rules_title": "Règles de la Maison",
+    "rules_no_smoking": "Pas de fumer",
+    "rules_quiet_hours": "Heures de calme",
+    "rules_quiet_hours_time": "22h00 - 08h00",
+    "rules_recycle": "Merci de recycler",
+    "rules_checkout": "Heure de départ",
+    "rules_checkout_time": "Avant 11h00",
+    "contact_host": "Contacter l'hôte",
+    "usually_responds": "Répond généralement en 1h"
   },
   "devices": {
     "title": "Comment utiliser les appareils",
