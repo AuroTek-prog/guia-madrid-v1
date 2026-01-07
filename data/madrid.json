@@ -84,9 +84,9 @@
     },
     {
       "id": "el-rastro-market",
-      "nameKey": "el_rastro_market_name",
+      "nameKey": "el_rastro_name", 
       "categoryKey": "shopping_entertainment",
-      "descriptionKey": "el_rastro_market_desc",
+      "descriptionKey": "el_rastro_desc",  
       "image": "assets/images/madrid/el-rastro-market.jpg"
     }
   ]
