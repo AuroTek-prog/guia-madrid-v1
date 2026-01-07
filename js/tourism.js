@@ -22,6 +22,9 @@ function renderPage() {
             feedContainer.innerHTML = ''; // Limpiar contenido previo
 
             madridData.experiences.forEach(exp => {
+                // Obtenemos el nombre del lugar traducido para usarlo después
+                const placeName = t(`tourism.places.${exp.nameKey}`);
+
                 const card = document.createElement('div');
                 card.className = '@container group cursor-pointer';
                 card.innerHTML = `
@@ -36,7 +39,7 @@ function renderPage() {
                         <div class="flex w-full grow flex-col items-start justify-center gap-3 p-6">
                             <div class="flex flex-col gap-2 w-full">
                                 <div class="flex justify-between items-start w-full">
-                                    <p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight tracking-tight">${t(`tourism.places.${exp.nameKey}`)}</p>
+                                    <p class="text-gray-900 dark:text-white text-2xl font-bold leading-tight tracking-tight">${placeName}</p>
                                     <span class="material-symbols-outlined text-gray-400 dark:text-gray-500" style="font-size: 20px;">favorite_border</span>
                                 </div>
                                 <p class="text-gray-600 dark:text-gray-400 text-base font-light leading-relaxed line-clamp-2">
@@ -44,7 +47,8 @@ function renderPage() {
                                 </p>
                             </div>
                             <div class="w-full pt-2">
-                                <button class="flex w-full items-center justify-center rounded-lg h-12 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 text-sm font-semibold tracking-wide transition-colors gap-2">
+                                <!-- CAMBIO CLAVE: Añadimos una clase y un atributo de datos al botón -->
+                                <button class="details-button flex w-full items-center justify-center rounded-lg h-12 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 text-sm font-semibold tracking-wide transition-colors gap-2" data-place-name="${placeName}">
                                     <span>${t('tourism.explore_details')}</span>
                                     <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
                                 </button>
@@ -57,6 +61,9 @@ function renderPage() {
             
             // Configurar el modal de selección de mapa
             setupMapModal();
+            
+            // Configurar los botones de detalles (NUEVO)
+            setupDetailsButtons();
         })
         .catch(error => console.error('Error loading Madrid data:', error));
 }
@@ -67,27 +74,23 @@ function setupMapModal() {
     const closeModalBtn = document.getElementById('close-modal');
     const mapOptions = document.querySelectorAll('.map-option');
     
-    // Abrir modal al hacer clic en el botón del mapa
     mapButton.addEventListener('click', () => {
         mapModal.classList.add('show');
     });
     
-    // Cerrar modal al hacer clic en el botón de cerrar
     closeModalBtn.addEventListener('click', () => {
         mapModal.classList.remove('show');
     });
     
-    // Cerrar modal al hacer clic fuera del contenido
     mapModal.addEventListener('click', (e) => {
         if (e.target === mapModal) {
             mapModal.classList.remove('show');
         }
     });
     
-    // Manejar la selección de mapa
     mapOptions.forEach(option => {
         option.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que el clic se propague al backdrop
+            e.stopPropagation();
             const mapType = option.getAttribute('data-map');
             openMap(mapType);
             mapModal.classList.remove('show');
@@ -96,53 +99,38 @@ function setupMapModal() {
 }
 
 function openMap(mapType) {
-    // Coordenadas del centro de Madrid
     const lat = 40.4168;
     const lng = -3.7038;
     const query = encodeURIComponent('Madrid, España');
     const label = encodeURIComponent('Puntos de interés en Madrid');
     
-    // Detectar si es un dispositivo iOS
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     
     let mapUrl;
 
     if (isIOS) {
-        // Lógica específica para iOS
         switch (mapType) {
             case 'google':
-                // 1. Intentar abrir la app nativa de Google Maps
                 mapUrl = `comgooglemaps://?center=${lat},${lng}&q=${query}&zoom=12`;
                 window.location.href = mapUrl;
-                
-                // 2. Si la app no está instalada, el navegador no hace nada.
-                //    Redirigir a la web después de un pequeño retardo.
                 setTimeout(() => {
                     window.location.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
                 }, 500);
-                return; // Salir de la función para no ejecutar el código final
-
+                return;
             case 'apple':
-                // Apple Maps se abre con su URL específica
                 mapUrl = `maps://?q=${label}&ll=${lat},${lng}`;
                 break;
-
             case 'waze':
-                // 1. Intentar abrir la app nativa de Waze
                 mapUrl = `waze://?ll=${lat},${lng}&navigate=yes`;
                 window.location.href = mapUrl;
-
-                // 2. Fallback a la web de Waze si la app no está instalada
                 setTimeout(() => {
                     window.location.href = `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
                 }, 500);
-                return; // Salir de la función
-
+                return;
             default:
                 mapUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
         }
     } else {
-        // Lógica para escritorio y otros móviles (como Android)
         switch (mapType) {
             case 'google':
                 mapUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
@@ -158,8 +146,33 @@ function openMap(mapType) {
         }
     }
     
-    // Usar window.location.href para navegación directa, más fiable en móviles
     window.location.href = mapUrl;
+}
+
+// NUEVA FUNCIÓN para manejar los botones de detalles
+function setupDetailsButtons() {
+    const feedContainer = document.getElementById('experiences-feed');
+    
+    // Usamos delegación de eventos para manejar los clics en los botones
+    feedContainer.addEventListener('click', (e) => {
+        // Buscamos el botón más cercano con la clase 'details-button'
+        const button = e.target.closest('.details-button');
+        
+        // Si se ha hecho clic en un botón de detalles
+        if (button) {
+            // Obtenemos el nombre del lugar desde el atributo de datos
+            const placeName = button.getAttribute('data-place-name');
+            
+            // Creamos la consulta de búsqueda, añadiendo "Madrid" para mayor precisión
+            const searchQuery = encodeURIComponent(`${placeName} Madrid`);
+            
+            // Construimos la URL de búsqueda de Google
+            const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
+            
+            // Redirigimos al usuario a la búsqueda
+            window.location.href = searchUrl;
+        }
+    });
 }
 
 // Inicializar la página cuando el DOM esté completamente cargado
