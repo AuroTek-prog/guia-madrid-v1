@@ -24,7 +24,7 @@ function renderPage() {
                 const placeName = t(`tourism.places.${exp.nameKey}`);
 
                 const card = document.createElement('div');
-                card.className = '@container group cursor-pointer';
+                card.className = 'experience-card';
                 card.innerHTML = `
                     <div class="flex flex-col items-stretch justify-start rounded-2xl shadow-xl bg-white dark:bg-surface-dark overflow-hidden transition-transform duration-300 hover:shadow-2xl hover:-translate-y-1 ring-1 ring-black/5 dark:ring-white/5">
                         <div class="relative w-full aspect-[4/5] sm:aspect-video bg-center bg-no-repeat bg-cover" style="background-image: url('${window.ROOT_PATH}${exp.image}');">
@@ -44,9 +44,8 @@ function renderPage() {
                                     ${t(`tourism.places.${exp.descriptionKey}`)}
                                 </p>
                             </div>
-                            <div class="w-full pt-2" style="position: relative; z-index: 10;">
-                                <!-- CAMBIO CLAVE: Botón con ID único y estilos forzados -->
-                                <button id="details-btn-${index}" class="details-btn flex w-full items-center justify-center rounded-lg h-12 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 text-sm font-semibold tracking-wide transition-colors gap-2" style="cursor: pointer !important; position: relative; z-index: 20;">
+                            <div class="w-full pt-2">
+                                <button id="details-btn-${index}" class="details-btn flex w-full items-center justify-center rounded-lg h-12 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 text-sm font-semibold tracking-wide transition-colors gap-2">
                                     <span>${t('tourism.explore_details')}</span>
                                     <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
                                 </button>
@@ -56,25 +55,21 @@ function renderPage() {
                 `;
                 feedContainer.appendChild(card);
 
-                // --- CAMBIO MÁS IMPORTANTE: Adjuntar el evento directamente al ID único ---
+                // Adjuntar el evento directamente al botón
                 const detailsButton = document.getElementById(`details-btn-${index}`);
                 if (detailsButton) {
-                    detailsButton.addEventListener('click', (event) => {
-                        // Prevenimos cualquier otro comportamiento
-                        event.preventDefault();
-                        event.stopPropagation();
+                    detailsButton.addEventListener('click', function() {
+                        console.log('¡CLIC EN BOTÓN DETECTADO!');
                         
-                        console.log('¡CLIC EN BOTÓN DETECTADO!'); // Depuración
-
                         // Obtenemos el nombre del lugar desde el texto del título en la misma tarjeta
                         const placeTitle = card.querySelector('.place-title').textContent.trim();
                         
-                        console.log(`Buscando: ${placeTitle}`); // Depuración
+                        console.log(`Buscando: ${placeTitle}`);
                         
                         const searchQuery = encodeURIComponent(`${placeTitle} Madrid`);
                         const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
                         
-                        console.log(`URL: ${searchUrl}`); // Depuración
+                        console.log(`URL: ${searchUrl}`);
                         
                         // Abrimos en una nueva pestaña
                         window.open(searchUrl, '_blank');
@@ -94,26 +89,42 @@ function setupMapModal() {
     const closeModalBtn = document.getElementById('close-modal');
     const mapOptions = document.querySelectorAll('.map-option');
     
-    mapButton.addEventListener('click', () => {
-        mapModal.classList.add('show');
+    // Mostrar el modal al hacer clic en el botón del mapa
+    mapButton.addEventListener('click', function() {
+        mapModal.style.display = 'flex';
+        setTimeout(() => {
+            mapModal.classList.add('show');
+        }, 10);
     });
     
-    closeModalBtn.addEventListener('click', () => {
+    // Cerrar modal al hacer clic en el botón de cerrar
+    closeModalBtn.addEventListener('click', function() {
         mapModal.classList.remove('show');
+        setTimeout(() => {
+            mapModal.style.display = 'none';
+        }, 300);
     });
     
-    mapModal.addEventListener('click', (e) => {
+    // Cerrar modal al hacer clic fuera del contenido
+    mapModal.addEventListener('click', function(e) {
         if (e.target === mapModal) {
             mapModal.classList.remove('show');
+            setTimeout(() => {
+                mapModal.style.display = 'none';
+            }, 300);
         }
     });
     
+    // Manejar la selección de mapa
     mapOptions.forEach(option => {
-        option.addEventListener('click', (e) => {
+        option.addEventListener('click', function(e) {
             e.stopPropagation();
-            const mapType = option.getAttribute('data-map');
+            const mapType = this.getAttribute('data-map');
             openMap(mapType);
             mapModal.classList.remove('show');
+            setTimeout(() => {
+                mapModal.style.display = 'none';
+            }, 300);
         });
     });
 }
@@ -168,8 +179,6 @@ function openMap(mapType) {
     
     window.location.href = mapUrl;
 }
-
-// Ya no necesitamos la función setupDetailsButtons
 
 // Inicializar la página cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', renderPage);
