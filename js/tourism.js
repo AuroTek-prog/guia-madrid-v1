@@ -20,7 +20,7 @@ function renderPage() {
             const feedContainer = document.getElementById('experiences-feed');
             feedContainer.innerHTML = ''; // Limpiar contenido previo
 
-            madridData.experiences.forEach(exp => {
+            madridData.experiences.forEach((exp, index) => {
                 const placeName = t(`tourism.places.${exp.nameKey}`);
 
                 const card = document.createElement('div');
@@ -37,7 +37,6 @@ function renderPage() {
                         <div class="flex w-full grow flex-col items-start justify-center gap-3 p-6">
                             <div class="flex flex-col gap-2 w-full">
                                 <div class="flex justify-between items-start w-full">
-                                    <!-- CAMBIO CLAVE: Añadimos una clase específica al título -->
                                     <p class="place-title text-gray-900 dark:text-white text-2xl font-bold leading-tight tracking-tight">${placeName}</p>
                                     <span class="material-symbols-outlined text-gray-400 dark:text-gray-500" style="font-size: 20px;">favorite_border</span>
                                 </div>
@@ -45,9 +44,9 @@ function renderPage() {
                                     ${t(`tourism.places.${exp.descriptionKey}`)}
                                 </p>
                             </div>
-                            <div class="w-full pt-2">
-                                <!-- CAMBIO CLAVE: Usamos una clase simple y consistente -->
-                                <button class="details-btn flex w-full items-center justify-center rounded-lg h-12 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 text-sm font-semibold tracking-wide transition-colors gap-2">
+                            <div class="w-full pt-2" style="position: relative; z-index: 10;">
+                                <!-- CAMBIO CLAVE: Botón con ID único y estilos forzados -->
+                                <button id="details-btn-${index}" class="details-btn flex w-full items-center justify-center rounded-lg h-12 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 text-sm font-semibold tracking-wide transition-colors gap-2" style="cursor: pointer !important; position: relative; z-index: 20;">
                                     <span>${t('tourism.explore_details')}</span>
                                     <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
                                 </button>
@@ -56,13 +55,35 @@ function renderPage() {
                     </div>
                 `;
                 feedContainer.appendChild(card);
+
+                // --- CAMBIO MÁS IMPORTANTE: Adjuntar el evento directamente al ID único ---
+                const detailsButton = document.getElementById(`details-btn-${index}`);
+                if (detailsButton) {
+                    detailsButton.addEventListener('click', (event) => {
+                        // Prevenimos cualquier otro comportamiento
+                        event.preventDefault();
+                        event.stopPropagation();
+                        
+                        console.log('¡CLIC EN BOTÓN DETECTADO!'); // Depuración
+
+                        // Obtenemos el nombre del lugar desde el texto del título en la misma tarjeta
+                        const placeTitle = card.querySelector('.place-title').textContent.trim();
+                        
+                        console.log(`Buscando: ${placeTitle}`); // Depuración
+                        
+                        const searchQuery = encodeURIComponent(`${placeTitle} Madrid`);
+                        const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
+                        
+                        console.log(`URL: ${searchUrl}`); // Depuración
+                        
+                        // Abrimos en una nueva pestaña
+                        window.open(searchUrl, '_blank');
+                    });
+                }
             });
             
             // Configurar el modal de selección de mapa
             setupMapModal();
-            
-            // Configurar los botones de detalles con el nuevo enfoque
-            setupDetailsButtons();
         })
         .catch(error => console.error('Error loading Madrid data:', error));
 }
@@ -148,44 +169,7 @@ function openMap(mapType) {
     window.location.href = mapUrl;
 }
 
-// NUEVO Y MÁS ROBUSTO setupDetailsButtons
-function setupDetailsButtons() {
-    const feedContainer = document.getElementById('experiences-feed');
-    
-    // Usamos delegación de eventos. Es más eficiente.
-    feedContainer.addEventListener('click', (event) => {
-        // Comprobamos si el elemento clicado es un botón de detalles
-        const button = event.target.closest('.details-btn');
-        
-        if (button) {
-            console.log('¡EVENTO DE CLIC DETECTADO!'); // Mensaje de depuración
-            
-            // Desde el botón, subimos hasta la tarjeta completa
-            const card = button.closest('.@container');
-            
-            // Dentro de la tarjeta, buscamos el elemento con el título
-            const titleElement = card.querySelector('.place-title');
-            
-            if (titleElement) {
-                // Obtenemos el texto del título (el nombre del lugar)
-                const placeName = titleElement.textContent.trim();
-                
-                console.log(`Nombre del lugar obtenido: "${placeName}"`); // Mensaje de depuración
-                
-                // Construimos la URL de búsqueda
-                const searchQuery = encodeURIComponent(`${placeName} Madrid`);
-                const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
-                
-                console.log(`URL a abrir: ${searchUrl}`); // Mensaje de depuración
-                
-                // Abrimos la URL. Usamos _blank para intentar abrir en una nueva pestaña.
-                window.open(searchUrl, '_blank');
-            } else {
-                console.error('No se pudo encontrar el título del lugar en la tarjeta.');
-            }
-        }
-    });
-}
+// Ya no necesitamos la función setupDetailsButtons
 
 // Inicializar la página cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', renderPage);
