@@ -13,7 +13,6 @@ function renderPage() {
             document.getElementById('experiences-subtitle').textContent = t('tourism.experiences_subtitle');
             document.getElementById('fab-text').textContent = t('tourism.map_view');
             
-            // --- CORRECCIÓN CLAVE AQUÍ ---
             // Usamos window.ROOT_PATH para construir la ruta completa y correcta
             document.querySelector('#hero-image .bg-cover').style.backgroundImage = `url('${window.ROOT_PATH}${madridData.hero.image}')`;
             
@@ -22,8 +21,18 @@ function renderPage() {
             feedContainer.innerHTML = ''; // Limpiar contenido previo
 
             madridData.experiences.forEach(exp => {
-                // Obtenemos el nombre del lugar traducido para usarlo después
+                // Obtenemos el nombre del lugar traducido
                 const placeName = t(`tourism.places.${exp.nameKey}`);
+
+                // --- DEPURACIÓN ---
+                // Puedes abrir la consola de desarrolladores en tu navegador (Safari en Mac conectado a tu iPhone) para ver estos logs.
+                // Esto nos ayudará a saber si el nombre del lugar se está obteniendo correctamente.
+                if (!placeName || placeName.includes('tourism.places.')) {
+                    console.warn(`Advertencia: La traducción para la clave '${exp.nameKey}' no se encontró. El botón podría no funcionar correctamente.`);
+                } else {
+                    console.log(`Lugar encontrado: ${placeName}`);
+                }
+                // --- FIN DE LA DEPURACIÓN ---
 
                 const card = document.createElement('div');
                 card.className = '@container group cursor-pointer';
@@ -47,8 +56,8 @@ function renderPage() {
                                 </p>
                             </div>
                             <div class="w-full pt-2">
-                                <!-- CAMBIO CLAVE: Añadimos una clase y un atributo de datos al botón -->
-                                <button class="details-button flex w-full items-center justify-center rounded-lg h-12 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 text-sm font-semibold tracking-wide transition-colors gap-2" data-place-name="${placeName}">
+                                <!-- CAMBIO CLAVE: El botón ya no necesita atributos de datos -->
+                                <button class="details-button flex w-full items-center justify-center rounded-lg h-12 bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10 text-sm font-semibold tracking-wide transition-colors gap-2">
                                     <span>${t('tourism.explore_details')}</span>
                                     <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span>
                                 </button>
@@ -57,13 +66,32 @@ function renderPage() {
                     </div>
                 `;
                 feedContainer.appendChild(card);
+
+                // --- CAMBIO MÁS IMPORTANTE ---
+                // Adjuntamos el evento de clic directamente al botón recién creado.
+                const detailsButton = card.querySelector('.details-button');
+                if (detailsButton) {
+                    detailsButton.addEventListener('click', () => {
+                        // Usamos la variable 'placeName' que capturamos antes
+                        console.log(`Botón presionado. Buscando información sobre: ${placeName}`);
+                        
+                        // Creamos la consulta de búsqueda, añadiendo "Madrid" para mayor precisión
+                        const searchQuery = encodeURIComponent(`${placeName} Madrid`);
+                        
+                        // Construimos la URL de búsqueda de Google
+                        const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
+                        
+                        console.log(`Abriendo URL: ${searchUrl}`);
+                        
+                        // Usamos window.open() para abrir en una nueva pestaña/ventana.
+                        // Esto es más explícito y a menudo más fiable en móviles.
+                        window.open(searchUrl, '_blank');
+                    });
+                }
             });
             
             // Configurar el modal de selección de mapa
             setupMapModal();
-            
-            // Configurar los botones de detalles (NUEVO)
-            setupDetailsButtons();
         })
         .catch(error => console.error('Error loading Madrid data:', error));
 }
@@ -149,31 +177,7 @@ function openMap(mapType) {
     window.location.href = mapUrl;
 }
 
-// NUEVA FUNCIÓN para manejar los botones de detalles
-function setupDetailsButtons() {
-    const feedContainer = document.getElementById('experiences-feed');
-    
-    // Usamos delegación de eventos para manejar los clics en los botones
-    feedContainer.addEventListener('click', (e) => {
-        // Buscamos el botón más cercano con la clase 'details-button'
-        const button = e.target.closest('.details-button');
-        
-        // Si se ha hecho clic en un botón de detalles
-        if (button) {
-            // Obtenemos el nombre del lugar desde el atributo de datos
-            const placeName = button.getAttribute('data-place-name');
-            
-            // Creamos la consulta de búsqueda, añadiendo "Madrid" para mayor precisión
-            const searchQuery = encodeURIComponent(`${placeName} Madrid`);
-            
-            // Construimos la URL de búsqueda de Google
-            const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
-            
-            // Redirigimos al usuario a la búsqueda
-            window.location.href = searchUrl;
-        }
-    });
-}
+// La función setupDetailsButtons ya no es necesaria, la hemos eliminado.
 
 // Inicializar la página cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', renderPage);
