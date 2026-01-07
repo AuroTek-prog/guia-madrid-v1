@@ -33,6 +33,85 @@
         body { font-family: 'Manrope', sans-serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Estilos modernos para los botones de navegación */
+        .nav-card {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(17, 82, 212, 0.05) 0%, rgba(17, 82, 212, 0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .nav-card:hover::before {
+            opacity: 1;
+        }
+        
+        .nav-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1rem;
+            font-size: 1.75rem;
+            margin-right: 1rem;
+            background: linear-gradient(135deg, rgba(17, 82, 212, 0.1) 0%, rgba(17, 82, 212, 0.05) 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-card:hover .nav-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, rgba(17, 82, 212, 0.2) 0%, rgba(17, 82, 212, 0.1) 100%);
+        }
+        
+        .nav-card .material-symbols-outlined {
+            color: #1152d4;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-card:hover .material-symbols-outlined {
+            transform: translateX(4px);
+        }
+        
+        .dark .nav-card {
+            background: #1a2233;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .dark .nav-card::before {
+            background: linear-gradient(135deg, rgba(17, 82, 212, 0.15) 0%, rgba(17, 82, 212, 0) 100%);
+        }
+        
+        .dark .nav-icon {
+            background: linear-gradient(135deg, rgba(17, 82, 212, 0.15) 0%, rgba(17, 82, 212, 0.05) 100%);
+        }
+        
+        .dark .nav-card:hover .nav-icon {
+            background: linear-gradient(135deg, rgba(17, 82, 212, 0.25) 0%, rgba(17, 82, 212, 0.1) 100%);
+        }
     </style>
     <style> body { min-height: max(884px, 100dvh); } </style>
 </head>
@@ -101,11 +180,39 @@
 
     <!-- Navigation Section (inicialmente oculta) -->
     <div id="navigation-section" class="hidden w-full">
-        <div class="space-y-3">
-            <a id="nav-essentials" href="pages/essentials.html" class="nav-card"><span class="nav-icon">🏠</span><div class="flex-1"><h4 class="font-bold">Cargando...</h4><p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p></div><span class="material-symbols-outlined">arrow_forward</span></a>
-            <a id="nav-devices" href="pages/devices.html" class="nav-card"><span class="nav-icon">🔌</span><div class="flex-1"><h4 class="font-bold">Cargando...</h4><p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p></div><span class="material-symbols-outlined">arrow_forward</span></a>
-            <a id="nav-recommendations" href="pages/recommendations.html" class="nav-card"><span class="nav-icon">🗺️</span><div class="flex-1"><h4 class="font-bold">Cargando...</h4><p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p></div><span class="material-symbols-outlined">arrow_forward</span></a>
-            <a id="nav-tourism" href="pages/tourism.html" class="nav-card"><span class="nav-icon">🏛️</span><div class="flex-1"><h4 class="font-bold">Cargando...</h4><p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p></div><span class="material-symbols-outlined">arrow_forward</span></a>
+        <div class="space-y-4">
+            <a id="nav-essentials" href="pages/essentials.html" class="nav-card">
+                <span class="nav-icon">🏠</span>
+                <div class="flex-1">
+                    <h4 class="font-bold text-lg">Cargando...</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p>
+                </div>
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+            <a id="nav-devices" href="pages/devices.html" class="nav-card">
+                <span class="nav-icon">🔌</span>
+                <div class="flex-1">
+                    <h4 class="font-bold text-lg">Cargando...</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p>
+                </div>
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+            <a id="nav-recommendations" href="pages/recommendations.html" class="nav-card">
+                <span class="nav-icon">🗺️</span>
+                <div class="flex-1">
+                    <h4 class="font-bold text-lg">Cargando...</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p>
+                </div>
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+            <a id="nav-tourism" href="pages/tourism.html" class="nav-card">
+                <span class="nav-icon">🏛️</span>
+                <div class="flex-1">
+                    <h4 class="font-bold text-lg">Cargando...</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p>
+                </div>
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
         </div>
     </div>
 
