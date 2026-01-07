@@ -48,12 +48,14 @@
     "access_code": "Code",
     "access_instructions": "Instructions",
     "house_rules_title": "Règles de la Maison",
-    "rules_no_smoking": "Pas de fumer",
-    "rules_quiet_hours": "Heures de calme",
-    "rules_quiet_hours_time": "22h00 - 08h00",
-    "rules_recycle": "Merci de recycler",
-    "rules_checkout": "Heure de départ",
-    "rules_checkout_time": "Avant 11h00",
+    "rules": {
+      "no_smoking": "Interdiction de fumer",
+      "quiet_hours": "Heures de silence",
+      "quiet_hours_time": "22h00 – 8h00",
+      "recycle": "Merci de recycler",
+      "checkout": "Heure de départ",
+      "checkout_time": "Avant 11h00"
+    },
     "contact_host": "Contacter l'hôte",
     "usually_responds": "Répond généralement en 1h"
   },

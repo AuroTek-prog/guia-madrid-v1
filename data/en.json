@@ -48,12 +48,14 @@
     "access_code": "Code",
     "access_instructions": "Instructions",
     "house_rules_title": "House Rules",
-    "rules_no_smoking": "No Smoking",
-    "rules_quiet_hours": "Quiet Hours",
-    "rules_quiet_hours_time": "10 PM - 8 AM",
-    "rules_recycle": "Please Recycle",
-    "rules_checkout": "Checkout",
-    "rules_checkout_time": "Before 11:00 AM",
+    "rules": {
+      "no_smoking": "No smoking",
+      "quiet_hours": "Quiet hours",
+      "quiet_hours_time": "10:00 PM – 8:00 AM",
+      "recycle": "Please recycle",
+      "checkout": "Check-out time",
+      "checkout_time": "Before 11:00 AM"
+    },
     "contact_host": "Contact Host",
     "usually_responds": "Usually responds in 1h"
   },
