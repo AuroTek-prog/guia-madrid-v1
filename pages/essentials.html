@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Información Esencial</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="sticky top-0 z-50 bg-card-light dark:bg-card-dark/95 backdrop-blur-md p-4 flex items-center border-b">
+            <button onclick="history.back()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h2 id="page-title" class="text-lg font-bold flex-1 text-center pr-10">Cargando...</h2>
+        </header>
+
+        <main class="p-4 pb-24 overflow-y-auto no-scrollbar">
+            <h1 id="apartment-name" class="text-3xl font-bold tracking-tight mb-2">Cargando...</h1>
+            <p id="apartment-address" class="text-gray-500 dark:text-gray-400 mb-6">Cargando...</p>
+
+            <!-- Sección WiFi -->
+            <section class="mb-8">
+                <h3 id="wifi-title" class="text-lg font-bold mb-3 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">wifi</span> Cargando...
+                </h3>
+                <div class="card">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1" id="wifi-network-label">Red</p>
+                            <p id="wifi-network" class="text-lg font-bold">Cargando...</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1" id="wifi-password-label">Contraseña</p>
+                            <div class="flex items-center gap-2">
+                                <span id="wifi-password" class="text-xl font-mono font-bold text-primary">Cargando...</span>
+                                <button id="wifi-copy-btn" class="p-2 rounded-full bg-primary/10 hover:bg-primary/20 text-primary">
+                                    <span class="material-symbols-outlined">content_copy</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Acceso -->
+            <section class="mb-8">
+                <h3 id="access-title" class="text-lg font-bold mb-3">Cargando...</h3>
+                <div class="card p-0 overflow-hidden">
+                    <div class="bg-primary/5 p-6 text-center border-b">
+                        <span class="material-symbols-outlined text-primary text-4xl">vpn_key</span>
+                        <p class="text-sm font-medium text-gray-500 mt-2" id="access-code-label">Código</p>
+                        <p id="access-code" class="text-3xl font-bold mt-1 tracking-widest">Cargando...</p>
+                    </div>
+                    <div class="p-5">
+                        <p class="font-semibold mb-2" id="access-instructions-label">Instrucciones</p>
+                        <p id="access-instructions-text">Las instrucciones se cargarán aquí.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Más secciones (Normas, Recomendaciones) se añadirían aquí -->
+
+        </main>
+    </div>
+
+    <!-- ¡IMPORTANTE! Define la ruta raíz antes de cargar los scripts -->
+    <script>
+        window.ROOT_PATH = '../';
+    </script>
+    <script src="../js/main.js"></script>
+    <script src="../js/essentials.js"></script>
+</body>
+</html>

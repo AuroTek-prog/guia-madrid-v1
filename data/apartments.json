@@ -1,0 +1,163 @@
+{
+  "sol-101": {
+    "name": "Acogedor Apartamento en Sol",
+    "address": "Calle de la Preciosa, 5, 1º 101",
+
+    "images": {
+      "portada": "assets/images/apartments/sol-101/portada.jpg",
+      "acceso": "assets/images/apartments/sol-101/acceso.jpg"
+    },
+
+    "host": {
+      "name": "Ana & Javier",
+      "photo": "assets/images/apartments/sol-101/host.jpg",
+      "phone": "+34 600 000 000"
+    },
+
+    "wifi": {
+      "network": "Apartamento_Sol_101",
+      "password": "passw0rd123"
+    },
+
+    "access": {
+      "type": "keybox",
+      "code": "1859B"
+    },
+
+        "devices": {
+      "climatzacion": {
+        "type": "central",
+        "detailsKey": "climatizacion_central"
+      },
+      "hob": {
+        "type": "ceramic",
+        "detailsKey": "hob_ceramic"
+      },
+      "washing_machine": {
+        "type": "front_load",
+        "detailsKey": "washing_machine_quick_wash"
+      },
+      "coffee_maker": {
+        "type": "nespresso",
+        "detailsKey": "coffee_maker_refill"
+      }
+    },
+
+    "recommendations": {
+      "featured": {
+        "name": "La Bodega de los Secretos",
+        "typeKey": "restaurant",
+        "descriptionKey": "bodega_secretos_desc",
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMRr_ODQKE7jaT0U7vadp78RK6bAMRaOsEqDcyLG9G4bOBuhgtKAjo7_LGn3O-VMmXRTmLHB-yKnXvLNAf2smR0wQm4untOLHFnMS39dIw_Riq0qMZj-NOazMMC6FA78gZ5NoRhXVgMWiOeqS4HtG5bxDm4N3v1iBO3_yCgDvhel0e4CuCPAJLEZP1RnEpDNeFl3iNHHJuSyDBJ5jSx6Syvw_AapfATQlUDANde8xrO4y2a-7TAUdi_CuMXeu-FBLecUwO3q0MrQ",
+        "distance": "7 min",
+        "priceRange": "$$"
+      },
+
+      "categories": [
+        { "icon": "grid_view", "key": "all" },
+        { "icon": "restaurant", "key": "eat" },
+        { "icon": "local_cafe", "key": "drink" },
+        { "icon": "shopping_bag", "key": "shop" },
+        { "icon": "directions_bus", "key": "transit" }
+      ],
+
+      "sections": [
+        {
+          "titleKey": "eats_title",
+          "items": [
+            {
+              "name": "Mercado de San Miguel",
+              "typeKey": "food_market",
+              "descriptionKey": "mercado_san_miguel_desc",
+              "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDpd0g-Dsv_AZ0c1waqrdzXUiKAB9vDUt_LJT9hNGCrAphok_e0SanYi0g575H8nBEEpCTXHNqsTEGmRZ7DK59cHWWYBPRfg0RsZVjUyjDeisVxrDmZw7uATMwBxU7xsb6X0QdpT4O9JFWk6OMSVYNmgttyTIjZl5vmHC_ONGXD7gOqrR5sYi13NfSgdqMQzLrOos06ESuFyMHjqb3uXHthFdqZjpXSv9pK8Q_Y7jGf4_p3ePr-c2Au80S-3cOQmvrJSj-qTZWGAw",
+              "distance": "12 min walk",
+              "priceRange": "$$$"
+            },
+            {
+              "name": "HanSo Café",
+              "typeKey": "coffee_shop",
+              "descriptionKey": "hanso_cafe_desc",
+              "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBZDNtkFUcXf_aoI1jxtNWsueLOU0lUrjdCJkYVEPVSsviWvSGhou6ipHPD4pLTnNfa-ZoR8LS_Y9N06ex9dVvqlgJYciblmPM5yTei4m3HcMWbxWuUGkEyWtre8IV0H-KseUoGnNSW4e27NSSS_-8wE2952-07G2R754RbqJmtnG24j_6g4YhUPEM7RuGRnkTOwOJaJ-9XXPtVKXPlRawK8_rwbFY9ZOEqA_P-XBFF0XBdYuBanOFKeK6ZjPGFIVICH7-au4scfQ",
+              "distance": "5 min walk",
+              "priceRange": "$$"
+            }
+          ]
+        },
+
+        {
+          "titleKey": "essentials_title",
+          "items": [
+            {
+              "name": "Carrefour Express",
+              "typeKey": "supermarket",
+              "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBjld_bCQQ1EFoqBY3ujf1SC8lBRIBzv06WzSezCgp3Qea_-1JRBqivXD7d16RgHTdDKE2rTUoJ9tdC1AAXAmrm3kCluwBNQbqDmjYcho1yIGdstcj4x2HG3s7gnA5npB9UVU5kISUvbYOsSsvI0wCRYM7PWOYmTGEO-kyP6Jk3u4Osb4RWqXYYfWe3niePWOGCpBNlhIu1I_o0yda_hx6tepcvrGMqqjkMagwVd5VHoYaxeDJZx_sAaYA8uqo7Lsjz8k7cw-RI4A",
+              "distance": "2 min"
+            },
+            {
+              "name": "Farmacia Madrid",
+              "typeKey": "pharmacy",
+              "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBu9EedE_3zXZDz-t3YopO-TfeKR-92FnIcyuMuzWAuwiUwGsLC6IB3z_EaMB4FShwiEmBd8g30v5xZUsi30PoLw8dcJBxTZTwXe9nnFsh3r_nsKgHv5b4a2lJiCiyElldmmy0W6MTe8dK0YMM0-AJP_t0DSxN5eaH3T3zr-gMW8s_2wUcSp6RzsD2phw0AacLZtznmyDBpLRju_TbKnJMLK3B_vV_GFIx34D9SkWwkqcIAwnMPqXiWBOlx3G6jQcaxGA37cY7yFQ",
+              "distance": "3 min"
+            }
+          ]
+        },
+
+        {
+          "titleKey": "transport_title",
+          "items": [
+            {
+              "name": "Sol Metro Station",
+              "typeKey": "metro",
+              "details": "Lines 1, 2, 3",
+              "lines": ["#38b6ff", "#ed1c24", "#ffcd00"],
+              "distance": "5 min"
+            }
+          ]
+        }
+      ]
+    },
+
+    "houseRules": [
+      { "icon": "smoke_free", "titleKey": "rules_no_smoking", "color": "red" },
+      { "icon": "bedtime", "titleKey": "rules_quiet_hours", "subtitleKey": "rules_quiet_hours_time", "color": "indigo" },
+      { "icon": "recycling", "titleKey": "rules_recycle", "color": "green" },
+      { "icon": "schedule", "titleKey": "rules_checkout", "subtitleKey": "rules_checkout_time", "color": "amber" }
+    ]
+  },
+
+  "granvia-205": {
+    "name": "Piso de Lujo en Gran Vía",
+    "address": "Gran Vía, 60, 2º D",
+
+    "images": {
+      "portada": "assets/images/apartments/granvia-205/portada.jpg"
+    },
+
+    "host": {
+      "name": "Carlos & Sofia",
+      "phone": "+34 600 111 111"
+    },
+
+    "wifi": {
+      "network": "Luxury_GranVia",
+      "password": "madrid2024!"
+    },
+
+    "access": {
+      "type": "keypad",
+      "code": "1234ABCD"
+    },
+
+    "devices": {
+      "heating": {
+        "type": "central",
+        "detailsKey": "heating_central"
+      }
+    },
+
+    "houseRules": [
+      { "icon": "smoke_free", "titleKey": "rules_no_smoking", "color": "red" },
+      { "icon": "bedtime", "titleKey": "rules_quiet_hours", "subtitleKey": "rules_quiet_hours_time", "color": "indigo" }
+    ]
+  }
+}

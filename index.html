@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Guía de tu Estancia en Madrid</title>
+    
+    <!-- Google Fonts & Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <style> body { min-height: max(884px, 100dvh); } </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#0d121b] dark:text-white min-h-screen flex flex-col antialiased selection:bg-primary/20">
+
+<!-- Hero Section with Full Bleed Image -->
+<div class="relative w-full h-[55vh] shrink-0">
+    <div id="hero-image" class="absolute inset-0 bg-cover bg-center" data-alt="Sunlit Madrid balcony with view of classic architecture">
+    </div>
+    <!-- Gradient Overlay for Text Readability -->
+    <div class="absolute inset-0 bg-gradient-to-t from-background-light via-transparent to-black/20 dark:from-background-dark dark:via-transparent dark:to-black/40"></div>
+    <!-- Header Content -->
+    <div class="absolute top-0 left-0 w-full p-6 pt-12 flex justify-between items-start">
+        <div class="bg-white/90 dark:bg-black/50 backdrop-blur-md p-2 rounded-full shadow-sm">
+            <span class="material-symbols-outlined text-primary dark:text-white text-2xl px-1">roofing</span>
+        </div>
+    </div>
+    <!-- Greeting -->
+    <div class="absolute bottom-16 left-0 w-full px-6">
+        <p id="hero-subtitle" class="text-white/90 text-sm font-medium uppercase tracking-widest mb-2 shadow-black/10 drop-shadow-sm">Cargando...</p>
+        <h1 id="welcome-title" class="text-4xl md:text-5xl font-light text-[#0d121b] dark:text-white leading-tight drop-shadow-sm">
+            Cargando... <br/><span id="welcome-bold" class="font-bold">Cargando...</span>
+        </h1>
+    </div>
+</div>
+
+<!-- Floating Property Card (Overlapping Hero) -->
+<div class="relative px-6 -mt-10 z-10 w-full max-w-md mx-auto">
+    <div class="bg-white dark:bg-[#1a2233] rounded-2xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-black/40 flex gap-4 items-center transform transition-transform hover:scale-[1.01] duration-300">
+        <!-- Thumbnail -->
+        <div id="property-thumbnail" class="w-20 h-20 shrink-0 rounded-xl bg-cover bg-center shadow-inner" data-alt="Modern luxury living room interior with sunlight">
+        </div>
+        <!-- Details -->
+        <div class="flex flex-col justify-center gap-1 flex-1">
+            <h2 id="property-name" class="text-lg font-bold text-[#0d121b] dark:text-white leading-tight">Cargando...</h2>
+            <div class="flex items-start gap-1 text-[#4c669a] dark:text-slate-400">
+                <span class="material-symbols-outlined text-[16px] mt-0.5">location_on</span>
+                <p id="property-address" class="text-xs font-medium leading-tight">Cargando...</p>
+            </div>
+        </div>
+        <!-- Status Icon -->
+        <div class="h-8 w-8 rounded-full bg-green-50 dark:bg-green-900/30 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-lg">check_circle</span>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col items-center w-full max-w-md mx-auto px-6 pt-8 pb-10">
+    <!-- Language Selector Section -->
+    <div id="language-selector-section" class="w-full">
+        <div class="text-center mb-6">
+            <h3 id="select-lang-title" class="text-xl font-bold text-[#0d121b] dark:text-white mb-1">Cargando...</h3>
+            <p id="select-lang-desc" class="text-sm text-slate-500 dark:text-slate-400">Cargando...</p>
+        </div>
+        <!-- Language Grid -->
+        <div id="language-grid" class="grid grid-cols-2 gap-4 w-full mb-8">
+            <!-- Los botones de idioma se generarán dinámicamente -->
+        </div>
+        <!-- Start Button -->
+        <button id="start-guide-btn" onclick="startGuide()" class="w-full bg-primary hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary/30 transition-all active:scale-[0.98] flex items-center justify-center gap-2 group">
+            <span id="start-guide-text">Cargando...</span>
+            <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </button>
+    </div>
+
+    <!-- Navigation Section (inicialmente oculta) -->
+    <div id="navigation-section" class="hidden w-full">
+        <div class="space-y-3">
+            <a id="nav-essentials" href="pages/essentials.html" class="nav-card"><span class="nav-icon">🏠</span><div class="flex-1"><h4 class="font-bold">Cargando...</h4><p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p></div><span class="material-symbols-outlined">arrow_forward</span></a>
+            <a id="nav-devices" href="pages/devices.html" class="nav-card"><span class="nav-icon">🔌</span><div class="flex-1"><h4 class="font-bold">Cargando...</h4><p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p></div><span class="material-symbols-outlined">arrow_forward</span></a>
+            <a id="nav-recommendations" href="pages/recommendations.html" class="nav-card"><span class="nav-icon">🗺️</span><div class="flex-1"><h4 class="font-bold">Cargando...</h4><p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p></div><span class="material-symbols-outlined">arrow_forward</span></a>
+            <a id="nav-tourism" href="pages/tourism.html" class="nav-card"><span class="nav-icon">🏛️</span><div class="flex-1"><h4 class="font-bold">Cargando...</h4><p class="text-sm text-gray-500 dark:text-gray-400">Cargando...</p></div><span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+    </div>
+
+    <!-- Footer Info -->
+    <div class="mt-auto pt-8 flex flex-col items-center gap-2 opacity-60">
+        <p id="host-name" class="text-xs text-center font-medium">Cargando...</p>
+        <p id="app-version" class="text-[10px] text-center uppercase tracking-widest">Cargando...</p>
+    </div>
+</div>
+
+</body>
+
+<!-- ¡IMPORTANTE! Definir la ruta raíz antes de cargar el script -->
+<script>
+    window.ROOT_PATH = './';
+</script>
+<script src="./js/main.js"></script>
+<script>
+    let currentLang = 'es'; // Idioma por defecto
+
+    function renderPage() {
+        const apt = window.appState.apartmentData[window.appState.apartmentId];
+        currentLang = window.appState.lang;
+
+        // Actualizar Hero
+        document.getElementById('hero-image').style.backgroundImage = `url(${apt.images.portada})`;
+        document.getElementById('hero-subtitle').textContent = t('index.hero_subtitle');
+        document.getElementById('welcome-title').innerHTML = `${t('index.welcome_title')} <br/><span class="font-bold">${t('index.welcome_bold')}</span>`;
+        
+        // Actualizar Tarjeta Flotante
+        document.getElementById('property-thumbnail').style.backgroundImage = `url(${apt.images.portada})`;
+        document.getElementById('property-name').textContent = apt.name;
+        document.getElementById('property-address').textContent = apt.address;
+
+        // Actualizar Selector de Idioma
+        document.getElementById('select-lang-title').textContent = t('index.select_language_title');
+        document.getElementById('select-lang-desc').textContent = t('index.select_language_desc');
+        document.getElementById('start-guide-text').textContent = t('index.start_guide');
+
+        // Generar botones de idioma dinámicamente
+        const languageGrid = document.getElementById('language-grid');
+        const languages = [
+            { code: 'es', flag: '🇪🇸', name: 'languages.spanish' },
+            { code: 'en', flag: '🇬🇧', name: 'languages.english' },
+            { code: 'fr', flag: '🇫🇷', name: 'languages.french' },
+            { code: 'de', flag: '🇩🇪', name: 'languages.german' }
+        ];
+
+        languageGrid.innerHTML = '';
+        languages.forEach(lang => {
+            const isSelected = lang.code === currentLang;
+            const button = document.createElement('button');
+            button.className = `group relative flex flex-col items-center justify-center gap-3 p-5 rounded-2xl bg-white dark:bg-[#1e2736] ${isSelected ? 'border-2 border-primary/10 dark:border-primary/30' : 'border border-transparent hover:border-primary/30 dark:hover:border-primary/50'} shadow-sm hover:shadow-md transition-all duration-300 ring-2 ring-transparent focus:ring-primary/20`;
+            button.onclick = () => changeLanguage(lang.code);
+            
+            button.innerHTML = `
+                <div class="w-10 h-10 rounded-full ${isSelected ? 'bg-primary/10 dark:bg-primary/20' : 'bg-[#f8f9fc] dark:bg-slate-700'} flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                    ${lang.flag}
+                </div>
+                <span class="text-sm font-semibold ${isSelected ? 'text-[#0d121b] dark:text-white' : 'text-[#0d121b] dark:text-white group-hover:text-primary dark:group-hover:text-primary-400'}">${t(lang.name)}</span>
+                ${isSelected ? `<div class="absolute top-3 right-3"><span class="material-symbols-outlined text-primary text-sm">radio_button_checked</span></div>` : ''}
+            `;
+            languageGrid.appendChild(button);
+        });
+
+        // Actualizar Footer
+        document.getElementById('host-name').textContent = `${t('index.hosted_by')} ${apt.host.name}`;
+        document.getElementById('app-version').textContent = t('index.app_version');
+
+        // Actualizar Navegación
+        document.querySelector('#nav-essentials h4').textContent = t('navigation.essentials_title');
+        document.querySelector('#nav-essentials p').textContent = t('navigation.essentials_desc');
+        document.querySelector('#nav-devices h4').textContent = t('navigation.devices_title');
+        document.querySelector('#nav-devices p').textContent = t('navigation.devices_desc');
+        document.querySelector('#nav-recommendations h4').textContent = t('navigation.recommendations_title');
+        document.querySelector('#nav-recommendations p').textContent = t('navigation.recommendations_desc');
+        document.querySelector('#nav-tourism h4').textContent = t('navigation.tourism_title');
+        document.querySelector('#nav-tourism p').textContent = t('navigation.tourism_desc');
+
+        const baseUrl = `?apartment=${window.appState.apartmentId}&lang=${currentLang}`;
+        document.getElementById('nav-essentials').href += baseUrl;
+        document.getElementById('nav-devices').href += baseUrl;
+        document.getElementById('nav-recommendations').href += baseUrl;
+        document.getElementById('nav-tourism').href += baseUrl;
+    }
+
+    function startGuide() {
+        // Ocultar el selector de idioma y mostrar la navegación
+        document.getElementById('language-selector-section').classList.add('hidden');
+        document.getElementById('navigation-section').classList.remove('hidden');
+    }
+
+    function changeLanguage(lang) {
+        const currentUrl = new URL(window.location);
+        currentUrl.searchParams.set('lang', lang);
+        window.location.href = currentUrl.toString();
+    }
+</script>
+</body>
+</html>
