@@ -54,6 +54,78 @@ function renderPage() {
                 `;
                 feedContainer.appendChild(card);
             });
+            
+            // Configurar el modal de selección de mapa
+            setupMapModal();
         })
         .catch(error => console.error('Error loading Madrid data:', error));
 }
+
+function setupMapModal() {
+    const mapButton = document.getElementById('map-button');
+    const mapModal = document.getElementById('map-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const mapOptions = document.querySelectorAll('.map-option');
+    
+    // Abrir modal al hacer clic en el botón del mapa
+    mapButton.addEventListener('click', () => {
+        mapModal.classList.add('show');
+    });
+    
+    // Cerrar modal al hacer clic en el botón de cerrar
+    closeModalBtn.addEventListener('click', () => {
+        mapModal.classList.remove('show');
+    });
+    
+    // Cerrar modal al hacer clic fuera del contenido
+    mapModal.addEventListener('click', (e) => {
+        if (e.target === mapModal) {
+            mapModal.classList.remove('show');
+        }
+    });
+    
+    // Manejar la selección de mapa
+    mapOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const mapType = option.getAttribute('data-map');
+            openMap(mapType);
+            mapModal.classList.remove('show');
+        });
+    });
+}
+
+function openMap(mapType) {
+    // Coordenadas del centro de Madrid
+    const lat = 40.4168;
+    const lng = -3.7038;
+    const query = encodeURIComponent('Madrid, España');
+    
+    let mapUrl;
+    
+    switch (mapType) {
+        case 'google':
+            // URL para Google Maps
+            mapUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+            break;
+            
+        case 'apple':
+            // URL para Apple Maps
+            mapUrl = `http://maps.apple.com/?q=${query}&ll=${lat},${lng}`;
+            break;
+            
+        case 'waze':
+            // URL para Waze
+            mapUrl = `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
+            break;
+            
+        default:
+            // Por defecto, Google Maps
+            mapUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+    }
+    
+    // Abrir la URL en una nueva pestaña
+    window.open(mapUrl, '_blank');
+}
+
+// Inicializar la página cuando el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', renderPage);
