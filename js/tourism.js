@@ -86,7 +86,8 @@ function setupMapModal() {
     
     // Manejar la selección de mapa
     mapOptions.forEach(option => {
-        option.addEventListener('click', () => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita que el clic se propague al backdrop
             const mapType = option.getAttribute('data-map');
             openMap(mapType);
             mapModal.classList.remove('show');
@@ -99,32 +100,66 @@ function openMap(mapType) {
     const lat = 40.4168;
     const lng = -3.7038;
     const query = encodeURIComponent('Madrid, España');
+    const label = encodeURIComponent('Puntos de interés en Madrid');
+    
+    // Detectar si es un dispositivo iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     
     let mapUrl;
-    
-    switch (mapType) {
-        case 'google':
-            // URL para Google Maps
-            mapUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
-            break;
-            
-        case 'apple':
-            // URL para Apple Maps
-            mapUrl = `http://maps.apple.com/?q=${query}&ll=${lat},${lng}`;
-            break;
-            
-        case 'waze':
-            // URL para Waze
-            mapUrl = `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
-            break;
-            
-        default:
-            // Por defecto, Google Maps
-            mapUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+
+    if (isIOS) {
+        // Lógica específica para iOS
+        switch (mapType) {
+            case 'google':
+                // 1. Intentar abrir la app nativa de Google Maps
+                mapUrl = `comgooglemaps://?center=${lat},${lng}&q=${query}&zoom=12`;
+                window.location.href = mapUrl;
+                
+                // 2. Si la app no está instalada, el navegador no hace nada.
+                //    Redirigir a la web después de un pequeño retardo.
+                setTimeout(() => {
+                    window.location.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+                }, 500);
+                return; // Salir de la función para no ejecutar el código final
+
+            case 'apple':
+                // Apple Maps se abre con su URL específica
+                mapUrl = `maps://?q=${label}&ll=${lat},${lng}`;
+                break;
+
+            case 'waze':
+                // 1. Intentar abrir la app nativa de Waze
+                mapUrl = `waze://?ll=${lat},${lng}&navigate=yes`;
+                window.location.href = mapUrl;
+
+                // 2. Fallback a la web de Waze si la app no está instalada
+                setTimeout(() => {
+                    window.location.href = `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
+                }, 500);
+                return; // Salir de la función
+
+            default:
+                mapUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+        }
+    } else {
+        // Lógica para escritorio y otros móviles (como Android)
+        switch (mapType) {
+            case 'google':
+                mapUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+                break;
+            case 'apple':
+                mapUrl = `http://maps.apple.com/?q=${query}&ll=${lat},${lng}`;
+                break;
+            case 'waze':
+                mapUrl = `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
+                break;
+            default:
+                mapUrl = `https://www.google.com/maps/search/?api=1&query=${query}`;
+        }
     }
     
-    // Abrir la URL en una nueva pestaña
-    window.open(mapUrl, '_blank');
+    // Usar window.location.href para navegación directa, más fiable en móviles
+    window.location.href = mapUrl;
 }
 
 // Inicializar la página cuando el DOM esté completamente cargado
